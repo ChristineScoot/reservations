@@ -1,12 +1,15 @@
 import React, {Component} from 'react';
 import DatePicker from "react-datepicker";
 import addDays from "date-fns/addDays";
+import addHours from "date-fns/addHours";
 import setMinutes from "date-fns/setMinutes";
 import setHours from "date-fns/setHours";
 import Header from '../components/Header';
 import MenuContainer from "../components/MenuContainer";
 import "react-datepicker/dist/react-datepicker.css";
 import 'react-datepicker/dist/react-datepicker-cssmodules.css';
+import Swal from 'sweetalert2/dist/sweetalert2.js'
+import 'sweetalert2/dist/sweetalert2.min.css'
 
 class ReservationPage extends Component {
     constructor() {
@@ -43,17 +46,11 @@ class ReservationPage extends Component {
         this.readObjects();
     }
 
-    handleSubmit(e) {
-        // console.log(this.state.from);
-        // console.log(addHours(this.state.from, 2));
-        // let newFrom=new Date(addHours(this.state.from, 50));
-        // console.log("New from"+newFrom);
-        // this.setState({
-        //     // from: addHours(this.state.from, 2),
-        //     from: newFrom,
-        //     to: addHours(this.state.to, 2)
-        // });
-
+    async handleSubmit(e) {
+        this.setState({
+            from: this.state.from,
+            to: this.state.to
+        });
 
         e.preventDefault();
         const headers = new Headers();
@@ -66,18 +63,34 @@ class ReservationPage extends Component {
             body: JSON.stringify(this.state),
         };
 
-        fetch('http://localhost:3301/reservation', options)
-            .then(res => res.json())
-            .then(json => console.log(json.message))
+        await fetch('http://localhost:3301/reservation', options)
+            .then(res => {
+                // res.json()
+                if (res.status === 400) {
+                    Swal.fire(
+                        'Error',
+                        "Cannot reserve for some reason.",
+                        'error'
+                    );
+                } else {
+                    this.props.history.push('/reservations');
+                }
+            })
             .catch(error => {
                     console.log(error.response);
-                    return;
                 }
             );
-        this.props.history.push('/reservations');
     }
 
     excludeDates() {
+        console.log(this.state.item.reservations);
+        for (let res in this.state.item.reservations) {
+            if (!this.state.item.reservations[res]) break
+            console.log(addHours(this.state.item.reservations[res].from, 2));
+            // addHours(new Date(item.from), 2).toUTCString()
+        }
+        let dateFrom = setHours(setMinutes(new Date(), 0), 17);
+        let dateTo = this.state.reservations;
         // let allDates = this.state.item.reservations;
         // console.log(allDates);
         // for(let date in allDates){
@@ -86,17 +99,15 @@ class ReservationPage extends Component {
         // }
     }
 
-    readObjects() {
+    async readObjects() {
         const headers = new Headers();
         const options = {
             method: 'GET',
             headers,
         };
         let params = new URLSearchParams(window.location.search);
-
-        this.setState({objectId: params.get('id')});
-
-        fetch('http://localhost:3301/object/' + this.state.objectId, options)
+        this.state.objectId = params.get('id');
+        await fetch('http://localhost:3301/object/' + this.state.objectId, options)
             .then(res => res.json())
             .then(response => this.setState({item: response}))
             .catch(error => console.error('Error:', error));
@@ -105,9 +116,9 @@ class ReservationPage extends Component {
 
     render() {
         const objectName = this.state.item.name;
-
+        this.excludeDates();
         return (
-            <div>
+            <div className="pages">
                 <Header/>
                 <MenuContainer/>
                 <div className="content">

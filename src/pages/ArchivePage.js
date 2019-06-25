@@ -6,7 +6,7 @@ import addHours from "date-fns/addHours";
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 import 'sweetalert2/dist/sweetalert2.min.css'
 
-class MyReservationsPage extends Component {
+class ArchivePage extends Component {
     constructor() {
         super();
         this.state = {
@@ -49,7 +49,7 @@ class MyReservationsPage extends Component {
             if (a.from < b.from) return -1;
             else if (a.from > b.from) return 1;
             else return 0;
-        });
+        }).reverse();
         this.setState({itemList})
     };
 
@@ -97,13 +97,9 @@ class MyReservationsPage extends Component {
             }
         );
         const objects = filteredItemList.map(item => {
-                if (new Date(item.from)>new Date()) {
+                if (new Date(item.from)<new Date()) {
                     return <div key={item.reservationId}>
                         <li><b>{item.name.toUpperCase()}</b>, {addHours(new Date(item.from), 2).toUTCString().substr(0, 22)}
-                            <img src={require("./deleteIcon.png")}
-                                 onClick={() => handleDelete(item.objectId, item.reservationId)}
-                                 width="20" height="20"
-                                 alt="Delete"/>
                         </li>
                     </div>
                 }
@@ -115,7 +111,7 @@ class MyReservationsPage extends Component {
                 <Header/>
                 <MenuContainer/>
                 <div className="content">
-                    <h1>My reservations</h1>
+                    <h1>My past reservations</h1>
 
                     <ul className="objects">
                         {objects}
@@ -135,4 +131,4 @@ class MyReservationsPage extends Component {
     }
 }
 
-export default MyReservationsPage;
+export default ArchivePage;

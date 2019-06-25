@@ -2,6 +2,7 @@
     background-color: #47576c;
     color: #ffffff;
     padding: 40px 15px;
+    /*margin-bottom: 40px;*/
     font-size: 22px;
     font-family: Calibri, "Times New Roman", serif;
     font-style: italic;
@@ -51,12 +52,16 @@
 
 .SignForm {
     text-align: left;
+    background-color: white;
+    min-height: 700px;
 }
 
 .FormField-Link {
     font-size: .8em;
 }
-
+.FormFields{
+    margin-top: 30px;
+}
 .FormField-Button {
     background-color: #2083d0;
     color: white;
@@ -68,8 +73,9 @@
 }
 
 .App {
-    padding: 10px;
-    /*background-color: #959ea9;*/
+    padding: 10px  15%;
+    background-color: #e2edff;
+    min-height: 720px;
 }
 
 .FormField-Label {
@@ -259,6 +265,10 @@
     left: 8px;
 }
 
+.pages{
+    background-color: white;
+    min-height: 700px;
+}
 
 
 /*.right{*/

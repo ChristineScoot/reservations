@@ -13,14 +13,14 @@ class ShowObjects extends Component {
         this.readObjects()
     }
 
-    readObjects() {
+    async readObjects() {
         const headers = new Headers();
         const options = {
             method: 'GET',
             headers,
         };
 
-        fetch('http://localhost:3301/object', options)
+        await fetch('http://localhost:3301/object', options)
             .then(res => res.json())
             .then(response => this.setState({itemList: response}))
             .catch(error => console.error('Error:', error));
@@ -37,7 +37,7 @@ class ShowObjects extends Component {
             <Link key={item._id} className="objectLinks" to={"/reserve/?id="+item._id}><li>{item.name}</li></Link>
         ));
         return (
-            <div>
+            <div className="pages">
                 <Header/>
                 <MenuContainer/>
                 <div className="content">

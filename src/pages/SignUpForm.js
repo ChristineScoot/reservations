@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import {NavLink} from "react-router-dom";
+import Swal from 'sweetalert2/dist/sweetalert2.js'
+import 'sweetalert2/dist/sweetalert2.min.css'
 
 class SignUpForm extends Component {
     constructor() {
@@ -45,10 +47,18 @@ class SignUpForm extends Component {
 
         if (status === 200 || status === 201) {
             console.log(response);
-            alert('SUCCESS! Now you can sign in.');        }
-        else {
+            Swal.fire(
+                'SUCCESS!',
+                'Now you can sign in.',
+                'success'
+            );
+        }else {
             console.log("error: " + status);
-            alert('ERROR: Could not sign up! Try again later.');
+            Swal.fire(
+                'ERROR!',
+                'Could not sign up! Try again later.',
+                'error'
+            );
         }
     }
 

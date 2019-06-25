@@ -6,7 +6,7 @@ import MenuContainer from "../components/MenuContainer";
 class AuthorPage extends Component {
     render() {
         return (
-            <div>
+            <div className="pages">
                 <Header />
                 <MenuContainer/>
                 <div className="content">

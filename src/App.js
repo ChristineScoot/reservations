@@ -7,6 +7,7 @@ import ShowObjects from "./pages/ShowObjects";
 import AuthorPage from "./pages/AuthorPage";
 import ReservationPage from "./pages/ReservationPage";
 import MyReservationsPage from "./pages/MyReservationsPage";
+import ArchivePage from "./pages/ArchivePage";
 
 class App extends Component {
     render() {
@@ -21,6 +22,7 @@ class App extends Component {
                         <Route path="/author" exact component={AuthorPage}/>
                         <Route path="/reserve" component={ReservationPage}/>
                         <Route path="/reservations" component={MyReservationsPage}/>
+                        <Route path="/archive" component={ArchivePage}/>
                     </Switch>
                 </Router>
             </div>

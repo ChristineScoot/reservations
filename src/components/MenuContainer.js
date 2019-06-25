@@ -11,10 +11,10 @@ class MenuContainer extends Component {
             activeItemPosition: 0,
             activeItemColor: '',
             menuItems: [
-                {text: 'Home'},
+                {text: 'home'},
                 {text: 'reservations'},
-                // {text: 'Blog'},
-                {text: 'Author'},
+                {text: 'archive'},
+                {text: 'author'},
             ],
         };
 

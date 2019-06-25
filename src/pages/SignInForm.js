@@ -65,7 +65,7 @@ class SignInForm extends Component {
     render() {
         this.checkUserIsLoggedIn();
         return (
-            <div className="SignInForm">
+            <div className="SignForm">
                 <div className="header">Object reservation of club room in a dormitory
                     <div className="Switcher">
                         <NavLink exact to="/" activeClassName="Switcher-Item-Active"
