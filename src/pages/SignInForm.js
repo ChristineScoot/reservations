@@ -51,8 +51,8 @@ class SignInForm extends Component {
                     if (localStorage.getItem('message') === "Auth failed") {
                         this.setState({show: true})
                     } else {
-                        this.props.history.push('/home');
                         localStorage.setItem('token', json.token);
+                        this.props.history.push('/home');
                     }
                 }
             )
